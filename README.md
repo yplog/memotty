@@ -1,15 +1,15 @@
-# 📚 Memotty - Interactive CSV-Based Quiz Application
+# Memotty - Interactive CSV-Based Quiz Application
 
 Memotty is a modern, interactive terminal quiz application built with Go and Bubbletea. It features dynamic CSV loading, intelligent distractor generation, and a beautiful terminal interface.
 
-## 🎯 Key Features
+## Key Features
 
-- ✅ **Dynamic CSV Loading**: Load questions from any CSV file in `~/.memotty/`
-- 📊 **Adaptive Options**: Question option count adapts to available answers (2-4 options)
-- 🔄 **Dual Quiz Modes**: Multiple choice and written answer modes
-- 📈 **Detailed Results**: Comprehensive analysis with correct/incorrect breakdown
+- **Dynamic CSV Loading**: Load questions from any CSV file in `~/.memotty/`
+- **Adaptive Options**: Question option count adapts to available answers (2-4 options)
+- **Dual Quiz Modes**: Multiple choice and written answer modes
+- **Detailed Results**: Comprehensive analysis with correct/incorrect breakdown
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 ```bash
@@ -23,7 +23,7 @@ go mod tidy
 go run cmd/memotty/main.go
 ```
 
-## 📋 CSV File Format
+## CSV File Format
 
 Place your CSV files in `~/.memotty/` directory:
 
@@ -45,7 +45,7 @@ What is the root word of beautiful?,beauty
 - **Location**: `~/.memotty/*.csv`
 - **No headers**: Start directly with question data
 
-## 🔧 Technical Features
+## Technical Features
 
 ### Dependencies
 - **[Bubbletea](https://github.com/charmbracelet/bubbletea)**: Terminal UI framework
