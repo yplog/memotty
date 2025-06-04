@@ -5,7 +5,6 @@ import (
 	"github.com/yplog/memotty/internal/models"
 )
 
-// RenderEmptyQuestionsError renders the error message when no questions are loaded
 func RenderEmptyQuestionsError() string {
 	titleStyle := lipgloss.NewStyle().
 		Bold(true).
@@ -13,7 +12,7 @@ func RenderEmptyQuestionsError() string {
 		MarginBottom(1)
 
 	var s string
-	s += titleStyle.Render("❌ ERROR: No questions loaded")
+	s += titleStyle.Render("ERROR: No questions loaded")
 	s += "\n\n"
 	s += "No questions were found in the selected CSV file.\n"
 	s += "Please check that your CSV file is properly formatted:\n"
@@ -24,7 +23,6 @@ func RenderEmptyQuestionsError() string {
 	return s
 }
 
-// HasValidQuestions checks if the model has valid questions to display
 func HasValidQuestions(m models.Model) bool {
 	return len(m.Questions) > 0 && m.CurrentQ < len(m.Questions)
 }

@@ -8,17 +8,14 @@ import (
 	"github.com/yplog/memotty/internal/models"
 )
 
-// RenderMenu renders the mode selection menu
 func RenderMenu(m models.Model) string {
 	var s strings.Builder
 
-	// Title style
 	titleStyle := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(lipgloss.Color("205")).
 		MarginBottom(2)
 
-	// Option styles
 	selectedStyle := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(lipgloss.Color("212")).
@@ -31,16 +28,13 @@ func RenderMenu(m models.Model) string {
 		Padding(0, 2).
 		MarginBottom(1)
 
-	// Info style
 	infoStyle := lipgloss.NewStyle().
 		Italic(true).
 		Foreground(lipgloss.Color("240"))
 
-	// Header
 	s.WriteString(titleStyle.Render("🎯 MEMOTTY - MODE SELECTION"))
 	s.WriteString("\n\n")
 
-	// Show selected file
 	if m.SelectedFile != "" {
 		s.WriteString(infoStyle.Render(fmt.Sprintf("📄 Selected file: %s", m.SelectedFile)))
 		s.WriteString("\n\n")
@@ -48,10 +42,9 @@ func RenderMenu(m models.Model) string {
 
 	s.WriteString("Please select a quiz mode:\n\n")
 
-	// Mode options
 	modes := []string{
 		"📋 Multiple Choice Mode (A, B, C, D options)",
-		"✏️  Written Answer Mode (Type your own answer)",
+		"✏️ Written Answer Mode (Type your own answer)",
 	}
 
 	for i, mode := range modes {

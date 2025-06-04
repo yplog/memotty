@@ -15,6 +15,12 @@ type App struct {
 	model models.Model
 }
 
+var (
+	version   = "dev"
+	commit    = "unknown"
+	buildTime = "unknown"
+)
+
 func (a App) Init() tea.Cmd {
 	return a.model.Init()
 }
@@ -87,6 +93,8 @@ func (a App) View() string {
 }
 
 func main() {
+	ui.SetVersionInfo(version, commit, buildTime)
+
 	csvFiles, err := csv.GetCSVFiles()
 	if err != nil {
 		fmt.Printf("Error initializing CSV system: %v\n", err)

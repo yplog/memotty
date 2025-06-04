@@ -14,9 +14,9 @@ help:
 
 .PHONY: build
 build:
-	@echo "Building $(BINARY_NAME)..."
+	@echo "Building $(BINARY_NAME) $(VERSION)..."
 	@go build $(LDFLAGS) -o $(BINARY_NAME) $(MAIN_PATH)
-	@echo "✅ Build complete: ./$(BINARY_NAME)"
+	@echo "Build complete: ./$(BINARY_NAME)"
 
 .PHONY: build-all
 build-all: clean
@@ -30,39 +30,46 @@ build-all: clean
 	@GOOS=linux GOARCH=amd64 go build $(LDFLAGS) -o $(BUILD_DIR)/$(BINARY_NAME)-linux-amd64 $(MAIN_PATH)
 	@echo "Building for Linux (arm64)..."
 	@GOOS=linux GOARCH=arm64 go build $(LDFLAGS) -o $(BUILD_DIR)/$(BINARY_NAME)-linux-arm64 $(MAIN_PATH)
-	@echo "✅ All builds complete in $(BUILD_DIR)/"
+	@echo "All builds complete in $(BUILD_DIR)/"
 
 .PHONY: run
 run:
-	@go run $(MAIN_PATH)
+	@echo "Running $(BINARY_NAME) $(VERSION)..."
+	@go run $(LDFLAGS) $(MAIN_PATH)
 
 .PHONY: install
 install:
 	@echo "Installing $(BINARY_NAME)..."
 	@go install $(LDFLAGS) $(MAIN_PATH)
-	@echo "✅ Installed to $(shell go env GOPATH)/bin/$(BINARY_NAME)"
+	@echo "Installed to $(shell go env GOPATH)/bin/$(BINARY_NAME)"
 
 .PHONY: install-local
 install-local: build
 	@echo "Installing to /usr/local/bin..."
 	@sudo cp $(BINARY_NAME) /usr/local/bin/
-	@echo "✅ Installed to /usr/local/bin/$(BINARY_NAME)"
+	@echo "Installed to /usr/local/bin/$(BINARY_NAME)"
 
 .PHONY: clean
 clean:
 	@echo "Cleaning..."
 	@rm -rf $(BUILD_DIR)
-	@echo "✅ Cleaned"
+	@echo "Cleaned"
 
 .PHONY: setup
 setup:
 	@echo "Setting up development environment..."
 	@go mod download
-	@echo "✅ Development environment ready"
-	@echo "💡 Run 'make help' to see all available commands"
+	@echo "Development environment ready"
+	@echo "Run 'make help' to see all available commands"
 
 .PHONY: release
 release: clean build-all
 	@echo "Preparing release..."
-	@echo "✅ Release builds ready in $(BUILD_DIR)/"
+	@echo "Release builds ready in $(BUILD_DIR)/"
 	@ls -la $(BUILD_DIR)/
+
+.PHONY: version
+version:
+	@echo "Version: $(VERSION)"
+	@echo "Commit: $(COMMIT)"
+	@echo "Build Time: $(BUILD_TIME)"

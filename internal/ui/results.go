@@ -8,17 +8,14 @@ import (
 	"github.com/yplog/memotty/internal/models"
 )
 
-// RenderResults renders the quiz results screen
 func RenderResults(m models.Model) string {
 	var s strings.Builder
 
-	// Title style
 	titleStyle := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(lipgloss.Color("205")).
 		MarginBottom(2)
 
-	// Success colors
 	successColor := lipgloss.Color("82")
 	errorColor := lipgloss.Color("196")
 	warningColor := lipgloss.Color("214")
@@ -38,11 +35,9 @@ func RenderResults(m models.Model) string {
 		emoji = "📚"
 	}
 
-	// Header
 	s.WriteString(titleStyle.Render("📊 QUIZ RESULTS"))
 	s.WriteString("\n\n")
 
-	// Show selected file and mode
 	infoStyle := lipgloss.NewStyle().
 		Italic(true).
 		Foreground(lipgloss.Color("240"))
@@ -59,7 +54,6 @@ func RenderResults(m models.Model) string {
 	s.WriteString(infoStyle.Render(fmt.Sprintf("🎯 Mode: %s", mode)))
 	s.WriteString("\n\n")
 
-	// Overall results
 	resultStyle := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(resultColor).
@@ -69,7 +63,6 @@ func RenderResults(m models.Model) string {
 		emoji, m.CorrectCount, len(m.Questions), percentage)))
 	s.WriteString("\n\n")
 
-	// Detailed results
 	s.WriteString("📝 Detailed Results:\n\n")
 
 	for i, question := range m.Questions {
