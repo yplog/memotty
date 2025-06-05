@@ -109,10 +109,10 @@ func (m Model) HandleMenuUpdate(msg tea.KeyMsg) (Model, tea.Cmd) {
 		m.CorrectCount = 0
 		m.State = StateQuestion
 	case "b":
-		// Back to file selection
 		m.State = StateFileSelection
 		m.Cursor = 0
 	}
+
 	return m, nil
 }
 
@@ -127,18 +127,6 @@ func (m Model) HandleQuestionUpdate(msg tea.KeyMsg) (Model, tea.Cmd) {
 	case "down":
 		if m.SelectedMode == ModeMultipleChoice && m.Cursor < len(m.Questions[m.CurrentQ].Options)-1 {
 			m.Cursor++
-		}
-	case "k":
-		if m.SelectedMode == ModeMultipleChoice && m.Cursor > 0 {
-			m.Cursor--
-		} else if m.SelectedMode == ModeWrittenAnswer {
-			m.InputText += "k"
-		}
-	case "j":
-		if m.SelectedMode == ModeMultipleChoice && m.Cursor < len(m.Questions[m.CurrentQ].Options)-1 {
-			m.Cursor++
-		} else if m.SelectedMode == ModeWrittenAnswer {
-			m.InputText += "j"
 		}
 	case "enter":
 		if m.SelectedMode == ModeMultipleChoice {
@@ -169,6 +157,7 @@ func (m Model) HandleQuestionUpdate(msg tea.KeyMsg) (Model, tea.Cmd) {
 			m.InputText += msg.String()
 		}
 	}
+
 	return m, nil
 }
 
@@ -191,5 +180,6 @@ func (m Model) HandleResultUpdate(msg tea.KeyMsg) (Model, tea.Cmd) {
 		m.CorrectCount = 0
 		m.InputText = ""
 	}
+
 	return m, nil
 }
