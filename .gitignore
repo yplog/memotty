@@ -62,7 +62,3 @@ __debug_bin
 # Air live reload
 .air.toml
 tmp/
-
-# Local CSV test files (except sample)
-*.csv
-!sample_*.csv
