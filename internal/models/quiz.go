@@ -42,15 +42,17 @@ type Model struct {
 	InputText    string
 	CSVFiles     []string
 	SelectedFile string
+	ScrollOffset int
 }
 
 func NewModel() Model {
 	return Model{
-		State:       StateFileSelection,
-		Cursor:      0,
-		UserAnswers: make([]int, 5),
-		UserTexts:   make([]string, 5),
-		CSVFiles:    []string{},
+		State:        StateFileSelection,
+		Cursor:       0,
+		UserAnswers:  make([]int, 5),
+		UserTexts:    make([]string, 5),
+		CSVFiles:     []string{},
+		ScrollOffset: 0,
 	}
 }
 
@@ -179,6 +181,12 @@ func (m Model) HandleResultUpdate(msg tea.KeyMsg) (Model, tea.Cmd) {
 		m.CurrentQ = 0
 		m.CorrectCount = 0
 		m.InputText = ""
+	case "up":
+		if m.ScrollOffset > 0 {
+			m.ScrollOffset--
+		}
+	case "down":
+		m.ScrollOffset++
 	}
 
 	return m, nil

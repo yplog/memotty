@@ -9,6 +9,37 @@ import (
 )
 
 func RenderResults(m models.Model) string {
+	content := buildFullResults(m)
+
+	lines := strings.Split(content, "\n")
+
+	viewportSize := 20
+	start := m.ScrollOffset
+	end := start + viewportSize
+
+	if start >= len(lines) {
+		start = len(lines) - viewportSize
+	}
+	if start < 0 {
+		start = 0
+	}
+	if end > len(lines) {
+		end = len(lines)
+	}
+
+	var visibleLines []string
+	for i := start; i < end && i < len(lines); i++ {
+		visibleLines = append(visibleLines, lines[i])
+	}
+
+	result := strings.Join(visibleLines, "\n")
+	result += "\n\n"
+	result += lipgloss.NewStyle().Faint(true).Render("↑/↓: Scroll • m: Main menu • r: Restart • f: Back to files • q/Enter: Exit")
+
+	return result
+}
+
+func buildFullResults(m models.Model) string {
 	var s strings.Builder
 
 	titleStyle := lipgloss.NewStyle().
