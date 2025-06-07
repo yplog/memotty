@@ -134,7 +134,5 @@ func buildFullResults(m models.Model) string {
 		s.WriteString("\n")
 	}
 
-	s.WriteString(lipgloss.NewStyle().Faint(true).Render("m: Main menu • r: Restart • f: Back to files • q/Enter: Exit"))
-
 	return s.String()
 }
