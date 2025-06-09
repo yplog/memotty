@@ -179,27 +179,29 @@ func createMultipleChoiceQuestionFromAnswers(question, correctAnswer string, all
 func getRandomDistractors(correctAnswer string, allAnswers []string, seed int) []string {
 	r := rand.New(rand.NewSource(time.Now().UnixNano() + int64(seed*13)))
 
-	var distractors []string
 	var otherAnswers []string
+	unique := make(map[string]struct{})
 
 	for _, answer := range allAnswers {
 		if answer != correctAnswer {
-			otherAnswers = append(otherAnswers, answer)
+			if _, exists := unique[answer]; !exists {
+				unique[answer] = struct{}{}
+				otherAnswers = append(otherAnswers, answer)
+			}
 		}
 	}
 
-	if len(otherAnswers) > 0 {
-		r.Shuffle(len(otherAnswers), func(i, j int) {
-			otherAnswers[i], otherAnswers[j] = otherAnswers[j], otherAnswers[i]
-		})
-
-		maxDistractors := len(otherAnswers)
-		if maxDistractors > 3 {
-			maxDistractors = 3
-		}
-
-		distractors = otherAnswers[:maxDistractors]
+	if len(otherAnswers) == 0 {
+		return []string{}
 	}
 
-	return distractors
+	r.Shuffle(len(otherAnswers), func(i, j int) {
+		otherAnswers[i], otherAnswers[j] = otherAnswers[j], otherAnswers[i]
+	})
+
+	if len(otherAnswers) > 3 {
+		otherAnswers = otherAnswers[:3]
+	}
+
+	return otherAnswers
 }

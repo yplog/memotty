@@ -18,7 +18,7 @@ func RenderEmptyQuestionsError() string {
 	s += "Please check that your CSV file is properly formatted:\n"
 	s += "- Each line should have: question,answer\n"
 	s += "- Questions and answers should not be empty\n\n"
-	s += lipgloss.NewStyle().Faint(true).Render("q: Exit to main menu")
+	s += lipgloss.NewStyle().Faint(true).Render("q: Back to menu")
 
 	return s
 }
