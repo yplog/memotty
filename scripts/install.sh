@@ -121,25 +121,12 @@ install_binary() {
     fi
 }
 
-setup_memotty_dir() {
-    local memotty_dir="$HOME/.memotty"
-    
-    if [ ! -d "$memotty_dir" ]; then
-        mkdir -p "$memotty_dir"
-        info "Created directory: $memotty_dir"
-        info "Place your CSV question files in this directory"
-    else
-        info "Directory already exists: $memotty_dir"
-    fi
-}
-
 main() {    
     detect_platform
     get_latest_release
     
     local temp_file=$(download_binary)
     install_binary "$temp_file"
-    setup_memotty_dir
     
     echo "" >&2
     success "🎉 Installation completed successfully!"
