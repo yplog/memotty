@@ -11,16 +11,45 @@ Memotty is a modern, interactive terminal quiz application built with Go and Bub
 
 ## Quick Start
 
-### Installation
+#### Option 1: One-line Install (Recommended)
+```bash
+# Latest release
+curl -fsSL https://raw.githubusercontent.com/yplog/memotty/main/scripts/install.sh | bash
+
+# Or download and run manually
+curl -fsSL -o install.sh https://raw.githubusercontent.com/yplog/memotty/main/scripts/install.sh
+chmod +x install.sh
+./install.sh
+```
+
+#### Option 2: Build from Source
 ```bash
 git clone https://github.com/yplog/memotty
 cd memotty
 go mod tidy
+go build -o memotty cmd/memotty/main.go
+
+chmod +x memotty
+mv memotty ~/.local/bin/
+
+# Add to PATH if not already added
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+# or for zsh users
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 ```
 
 ### Run the Application
 ```bash
-go run cmd/memotty/main.go
+memotty
+```
+
+### Uninstall
+```bash
+# Remove binary only
+rm -f ~/.local/bin/memotty
+
+# Complete removal (including CSV files)
+rm -f ~/.local/bin/memotty && rm -rf ~/.memotty
 ```
 
 ## CSV File Format
@@ -71,15 +100,6 @@ When did World War II end?,1945
 Who was the first US President?,George Washington
 What year did the Berlin Wall fall?,1989
 ```
-
-## 📈 Future Enhancements
-
-- [ ] Timer-based quizzes
-- [ ] Score tracking and statistics
-- [ ] Multiple difficulty levels
-- [ ] Multiple correct answers support (accept any of several valid answers)
-- [ ] Export results to file
-- [ ] Custom styling themes
 
 ## 🤝 Contributing
 
