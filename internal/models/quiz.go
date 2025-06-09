@@ -119,6 +119,22 @@ func (m Model) HandleMenuUpdate(msg tea.KeyMsg) (Model, tea.Cmd) {
 }
 
 func (m Model) HandleQuestionUpdate(msg tea.KeyMsg) (Model, tea.Cmd) {
+	if len(m.Questions) == 0 {
+		switch msg.String() {
+		case "ctrl+c":
+			return m, tea.Quit
+		case "q":
+			m.State = StateMenu
+			m.Cursor = 0
+			m.CurrentQ = 0
+			m.InputText = ""
+			m.CorrectCount = 0
+			return m, nil
+		default:
+			return m, nil
+		}
+	}
+
 	switch msg.String() {
 	case "ctrl+c", "q":
 		return m, tea.Quit
