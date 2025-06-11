@@ -147,6 +147,13 @@ func LoadQuestionsFromCSV(filename string, mode models.QuizMode) ([]models.Quest
 		}
 	}
 
+	if len(questions) > 1 {
+		r := rand.New(rand.NewSource(time.Now().UnixNano()))
+		r.Shuffle(len(questions), func(i, j int) {
+			questions[i], questions[j] = questions[j], questions[i]
+		})
+	}
+
 	return questions, nil
 }
 
