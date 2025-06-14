@@ -31,28 +31,30 @@ type Question struct {
 }
 
 type Model struct {
-	Questions    []Question
-	CurrentQ     int
-	Cursor       int
-	UserAnswers  []int
-	UserTexts    []string
-	CorrectCount int
-	State        QuizState
-	SelectedMode QuizMode
-	InputText    string
-	CSVFiles     []string
-	SelectedFile string
-	ScrollOffset int
+	Questions     []Question
+	CurrentQ      int
+	Cursor        int
+	UserAnswers   []int
+	UserTexts     []string
+	CorrectCount  int
+	State         QuizState
+	SelectedMode  QuizMode
+	InputText     string
+	CSVFiles      []string
+	SelectedFile  string
+	ScrollOffset  int
+	RequestUpdate bool
 }
 
 func NewModel() Model {
 	return Model{
-		State:        StateFileSelection,
-		Cursor:       0,
-		UserAnswers:  make([]int, 5),
-		UserTexts:    make([]string, 5),
-		CSVFiles:     []string{},
-		ScrollOffset: 0,
+		State:         StateFileSelection,
+		Cursor:        0,
+		UserAnswers:   make([]int, 5),
+		UserTexts:     make([]string, 5),
+		CSVFiles:      []string{},
+		ScrollOffset:  0,
+		RequestUpdate: false,
 	}
 }
 
@@ -87,6 +89,9 @@ func (m Model) HandleFileSelectionUpdate(msg tea.KeyMsg) (Model, tea.Cmd) {
 			m.State = StateMenu
 			m.Cursor = 0
 		}
+	case "u":
+		m.RequestUpdate = true
+		return m, tea.Quit
 	}
 	return m, nil
 }
@@ -113,6 +118,9 @@ func (m Model) HandleMenuUpdate(msg tea.KeyMsg) (Model, tea.Cmd) {
 	case "b":
 		m.State = StateFileSelection
 		m.Cursor = 0
+	case "u":
+		m.RequestUpdate = true
+		return m, tea.Quit
 	}
 
 	return m, nil

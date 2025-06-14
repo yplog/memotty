@@ -43,6 +43,9 @@ echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 memotty
 ```
 
+### Update
+Press `u` on the file selection or mode menu to download and install the latest release automatically.
+
 ### Uninstall
 ```bash
 # Remove binary only

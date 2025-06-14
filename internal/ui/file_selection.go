@@ -59,7 +59,7 @@ func RenderFileSelection(m models.Model) string {
 		s.WriteString("\n")
 		s.WriteString(infoStyle.Render("CSV format: question,answer (one per line)"))
 		s.WriteString("\n\n")
-		s.WriteString(lipgloss.NewStyle().Faint(true).Render("↑/↓: Select file • Enter: Continue • q: Exit"))
+		s.WriteString(lipgloss.NewStyle().Faint(true).Render("↑/↓: Select file • Enter: Continue • u: Update • q: Exit"))
 		s.WriteString("\n\n")
 		s.WriteString(lipgloss.NewStyle().Faint(true).Render(GetDetailedVersionInfo()))
 	}
