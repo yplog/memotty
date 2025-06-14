@@ -9,6 +9,7 @@ import (
 	"github.com/yplog/memotty/internal/csv"
 	"github.com/yplog/memotty/internal/models"
 	"github.com/yplog/memotty/internal/ui"
+	"github.com/yplog/memotty/internal/update"
 )
 
 type App struct {
@@ -107,8 +108,18 @@ func main() {
 	app := App{model: model}
 
 	p := tea.NewProgram(app, tea.WithAltScreen())
-	if _, err := p.Run(); err != nil {
+	finalModel, err := p.Run()
+	if err != nil {
 		fmt.Printf("Error running program: %v", err)
 		os.Exit(1)
+	}
+
+	if fApp, ok := finalModel.(App); ok {
+		if fApp.model.RequestUpdate {
+			fmt.Println("\nUpdating memotty to latest release...")
+			if err := update.Run(); err != nil {
+				fmt.Printf("Update failed: %v\n", err)
+			}
+		}
 	}
 }
