@@ -82,9 +82,9 @@ download_binary() {
     info "Downloading from: $download_url"
     
     if command -v curl >/dev/null 2>&1; then
-        curl -L -o "$temp_file" "$download_url" >/dev/null 2>&1 || error "Download failed"
+        curl -L --progress-bar -o "$temp_file" "$download_url" || error "Download failed"
     elif command -v wget >/dev/null 2>&1; then
-        wget -O "$temp_file" "$download_url" >/dev/null 2>&1 || error "Download failed"
+        wget --progress=bar:force -O "$temp_file" "$download_url" || error "Download failed"
     else
         error "curl or wget is required"
     fi
